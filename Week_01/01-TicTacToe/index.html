@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .app {
+            margin-left: auto;
+            margin-right: auto;
+            width: 300px;
+        }
+
+        .app:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .cell {
+            float: left;
+            width: 100px;
+            height: 100px;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+
+            font-size: 50px;
+            box-sizing: border-box;
+            /* margin-left: -1px;
+            margin-top: -1px; */
+            line-height: 100px;
+            text-align: center;
+            position: relative;
+        }
+
+        .cell:after {
+            content: attr(data-i);
+            font-size: 12px;
+            color: gray;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            line-height: 1;
+        }
+
+        .cell:nth-child(3n+1) {
+            border-left: 1px solid #ddd;
+        }
+
+        .cell:nth-child(1),
+        .cell:nth-child(2),
+        .cell:nth-child(3) {
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="app"></div>
+    <script src="./index.js"></script>
+</body>
+
+</html>
