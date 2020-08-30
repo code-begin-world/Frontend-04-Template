@@ -140,7 +140,7 @@ function drawChess(i, j, player) {
     ctx.fill();
     ctx.closePath();
 }
-
+ 
 canvas.addEventListener('click', function (e) {
     if (gameEnd) return;
     const { offsetX, offsetY } = e;
