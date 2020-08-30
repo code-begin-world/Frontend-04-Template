@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .app {
+            margin-top: 10vh;
+        }
+
+        .app>div {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: gray;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 10px;
+        }
+
+        .red.light {
+            background-color: red;
+        }
+
+        .green.light {
+            background-color: green;
+        }
+
+        .yellow.light {
+            background-color: yellow;
+        }
+
+        .time.red {
+            color: red;
+        }
+
+        .time.green {
+            color: green;
+        }
+
+        .time.yellow {
+            color: yellow;
+        }
+
+        .app .time {
+            border-radius: 6px;
+            width: 200px;
+            text-align: center;
+            line-height: 100px;
+            font-weight: bold;
+            font-size: 60px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="app">
+        <div class="red light"></div>
+        <div class="yellow"></div>
+        <div class="green"></div>
+        <div class="time">x</div>
+    </div>
+
+    <script>
+        const app = document.getElementById('app');
+        const time = app.querySelector('.time');
+
+
+        function sleep(t) {
+            return new Promise((resolve) => {
+                setTimeout(resolve, t);
+            });
+        }
+
+        function light(color) {
+            if (app.querySelector(`.${color}.light`)) {
+                return
+            }
+            const l = app.querySelector('.light');
+            l && l.classList.remove('light');
+
+            app.querySelector(`.${color}`).classList.add('light');
+        }
+
+        const lightArr = [
+            { color: 'red', interval: 10 },
+            { color: 'yellow', interval: 2 },
+            { color: 'green', interval: 5 },
+        ];
+
+        let i = 0;
+        async function go() {
+            while (true) {
+                if (i > 2) {
+                    i = 0;
+                }
+
+                // await sleep(lightArr[i].interval * 1000);
+                // i++;
+
+                let t = lightArr[i].interval;
+                time.classList.remove('red')
+                time.classList.remove('yellow')
+                time.classList.remove('green')
+                time.classList.add(lightArr[i].color);
+                while (t >= 0) {
+                    light(lightArr[i].color);
+                    time.textContent = t;
+                    await sleep(t ? 1000 : 100);
+                    t--;
+                }
+                i++
+            }
+        }
+
+        go();
+    </script>
+</body>
+
+</html>
