@@ -499,6 +499,138 @@ document.getElementById('go').onclick = function () {
     }
     drawMap();
     if (start && end) {
-        findPath([x1, y1], [x2, y2]);
+        if (document.getElementById('usePerfectPath').checked) {
+            findPathPerfect(start, end);
+        } else {
+            findPath(start, end);
+        }
     }
 };
+
+async function findPathPerfect(start, end) {
+    document.getElementById('cover').style.display = 'block';
+    fillAim(end);
+    const mapCopy = Object.create(map);
+
+    const distanceSquare = (a, b) => {
+        return (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2;
+    };
+
+    const compare = (a, b) => {
+        // return (a[0] - end[0]) ** 2 + (a[1] - end[1]) ** 2 - ((b[0] - end[0]) ** 2 + (b[1] - end[1]) ** 2);
+        // return distanceSquare(a, end) - distanceSquare(b, end);
+        // 上面只比较的了到终点的距离估算 完成应比较整个 F
+        const aIndex = a[1] * SIZE + a[0];
+        const bIndex = b[1] * SIZE + b[0];
+        return mapCopy[aIndex].f - mapCopy[bIndex].f;
+    };
+    // 记录所有可走到的点
+    const queue = document.getElementById('useBinaryHeap').checked ? new BinaryHeap([start], compare) : new GetMinQueue([start], compare);
+
+    /**
+     * 将点加入已经走过的集合
+     * @param {Number} x x 坐标
+     * @param {Number} y y 坐标
+     * @param {Point} pre 前置点
+     * @param {Number} g 前置点到 当前 xy 的移动成本 距离
+     */
+    function insert(x, y, pre, g) {
+        if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) return;
+
+        const currentPoint = [x, y];
+        // 当前索引
+        const index = y * SIZE + x;
+        // 前置节点索引
+        const [px, py] = pre;
+        const preIndex = py * SIZE + px;
+        let p_g = mapCopy[preIndex].g;
+
+        // 已经有值 表示是墙 或 已经走过, 已经走过的情况下 再比较是否最优
+        let cell = mapCopy[index];
+
+        // 墙 不可达
+        if (cell == 1) {
+            return;
+        }
+
+        const h = Math.sqrt(distanceSquare(currentPoint, end));
+
+        if (!cell) {
+            // 没走过 可达 加入并继续
+            fillPoint(currentPoint, 2);
+            mapCopy[index] = {
+                parent: pre,
+                g: p_g + g, // 起点到现在的移动距离
+                h: h, // 当前点到终点的距离估值
+                f: h + p_g + g
+            };
+
+            queue.give(currentPoint);
+            return;
+        }
+
+        const current_g = mapCopy[index].g;
+        if (p_g + g < current_g) {
+            mapCopy[index].parent = pre;
+            mapCopy[index].g = p_g + g;
+            mapCopy[index].h = h;
+            mapCopy[index].f = mapCopy[index].g + h;
+            // 此处修改了数据 小顶堆中对应节点位置需要更新
+            // 注意传引用 方便查询
+            queue.up(currentPoint);
+        }
+    }
+    let g = 0; // 移动成本
+    let h = Math.sqrt(distanceSquare(start, end)); // 估算距离
+    let f = g + h; // 总花费
+    mapCopy[start[1] * SIZE + start[0]] = { g, h, f };
+
+    while (queue.length) {
+        // 换用新的数据结构 取的时候拿距离目标点最近的 优化寻路查询
+        const point = queue.take();
+        const [x, y] = point;
+
+        if (x === end[0] && y === end[1]) {
+            // alert('可到达');
+            let path = getPath(point);
+            fillPoint(point, 3);
+            let i = path.length - 1;
+            while (i >= 0) {
+                fillPoint(path[i--], 3);
+            }
+            await sleep(20);
+            document.getElementById('cover').style.display = 'none';
+            alert('路径已找到');
+            return true;
+        }
+        await sleep(0);
+
+        // 横着走 距离标为 1
+        insert(x, y - 1, point, 1);
+        insert(x + 1, y, point, 1);
+        insert(x, y + 1, point, 1);
+        insert(x - 1, y, point, 1);
+
+        // 斜着走 距离标为 1.4 √2 = 1.414
+        insert(x - 1, y - 1, point, 1.4);
+        insert(x + 1, y - 1, point, 1.4);
+        insert(x + 1, y + 1, point, 1.4);
+        insert(x - 1, y + 1, point, 1.4);
+    }
+
+    function getPath(point) {
+        let path = [];
+
+        let [x, y] = point;
+        while (x != start[0] || y != start[1]) {
+            const index = y * SIZE + x;
+            path.push(mapCopy[index].parent);
+            [x, y] = mapCopy[index].parent;
+        }
+        // path.reverse();
+
+        return path;
+    }
+    document.getElementById('cover').style.display = 'none';
+    return false;
+}
