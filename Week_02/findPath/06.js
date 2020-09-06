@@ -355,6 +355,7 @@ class BinaryHeap {
 // console.log(b.data);
 
 async function findPath(start, end) {
+    document.getElementById('cover').style.display = 'block';
     fillAim(end);
     const mapCopy = Object.create(map);
 
@@ -421,6 +422,7 @@ async function findPath(start, end) {
                 fillPoint(path[i--], 3);
             }
             await sleep(20);
+            document.getElementById('cover').style.display = 'none';
             alert('路径已找到');
             return true;
         }
@@ -452,6 +454,7 @@ async function findPath(start, end) {
 
         return path;
     }
+    document.getElementById('cover').style.display = 'none';
     return false;
 }
 
@@ -487,6 +490,7 @@ document.getElementById('go').onclick = function () {
     } else {
         return alert('终点不合法');
     }
+    drawMap();
     if (start && end) {
         findPath([x1, y1], [x2, y2]);
     }
