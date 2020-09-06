@@ -576,7 +576,6 @@ async function findPathPerfect(start, end) {
             mapCopy[index].h = h;
             mapCopy[index].f = mapCopy[index].g + h;
             // 此处修改了数据 小顶堆中对应节点位置需要更新
-            // 注意传引用 方便查询
             queue.up(currentPoint);
         }
     }
