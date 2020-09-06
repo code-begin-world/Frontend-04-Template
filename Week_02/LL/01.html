@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>请在控制台查看结果</p>
+    <script>
+        const regexp = /([0-9\.]+)|([ \t]+)|([\r\n]+)|(\*)|(\/)|(\+)|(\-)/g;
+
+        const dictionary = ['Number', 'Whitespace', 'LineTerminator', '*', '/', '+', '-'];
+        function tokenize(source) {
+
+            let result = null;
+
+            console.log('input', source);
+            while (true) {
+                result = regexp.exec(source);
+                if (!result) break;
+
+                for (let i = 1; i <= dictionary.length; i++) {
+                    if (result[i]) {
+                        console.log(dictionary[i - 1], result[i]);
+                    }
+                }
+                console.log(result);
+            }
+        }
+
+        tokenize('1024 + 10 * 25');
+    </script>
+</body>
+
+</html>
