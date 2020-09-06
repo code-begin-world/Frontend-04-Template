@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>请在控制台查看结果</p>
+    <script>
+
+
+        const dictionary = ['Number', 'Whitespace', 'LineTerminator', '*', '/', '+', '-'];
+        function* tokenize(source) {
+            const regexp = /([0-9\.]+)|([ \t]+)|([\r\n]+)|(\*)|(\/)|(\+)|(\-)/g;
+
+            let result = null;
+            let lastIndex = 0;// 记录上一次匹配完成的结束索引
+            console.log('input', source);
+            while (true) {
+                lastIndex = regexp.lastIndex;
+                result = regexp.exec(source);
+                if (!result) break;
+                // 新的匹配的 结束位置 - 上一次的结束位置 > 当前匹配 则标识当前匹配和上一次匹配之间存在不认识的字符
+                if (regexp.lastIndex - lastIndex > result[0].length) {
+                    throw new Error(`unknown token at ${lastIndex} , 【${source[lastIndex]}】 is unknown.`)
+                    break;
+                }
+
+                const token = { type: '', value: '' };
+
+                for (let i = 1; i <= dictionary.length; i++) {
+                    if (result[i]) {
+                        token.type = dictionary[i - 1];
+                    }
+                }
+                token.value = result[0];
+                yield token;
+            }
+        }
+
+        function* tokenize2(source) {
+            const regexp = /([0-9\.]+)|([ \t]+)|([\r\n]+)|(\*)|(\/)|(\+)|(\-)/g;
+            let result = null;
+            let index = 0; // 记录匹配开始索引
+            console.log('input', source);
+            while (true) {
+                result = regexp.exec(source);
+                if (!result) break;
+
+                // 若匹配到的位置和预期开始位置不一致 则存在不认识的字符
+                if (index != result.index) {
+                    throw new Error(`unknown token at ${index} , 【${source[index]}】 is unknown`)
+                    break;
+                }
+                // 更新下次匹配应该的开始位置
+                index += result[0].length;
+
+                const token = { type: '', value: '' };
+
+                for (let i = 1; i <= dictionary.length; i++) {
+                    if (result[i]) {
+                        token.type = dictionary[i - 1];
+                    }
+                }
+                token.value = result[0];
+                yield token;
+            }
+        }
+        setTimeout(() => {
+            for (let t of tokenize('1024 + A10 * 25')) {
+                console.log(t);
+            }
+        }, 0);
+
+        setTimeout(() => {
+            console.log('\n==========');
+            for (let t of tokenize2('1024 + 10 * 25')) {
+                console.log(t);
+            }
+        }, 0);
+
+        setTimeout(() => {
+            console.log('\n==========');
+            for (let t of tokenize('1024 + A10 * 25')) {
+                console.log(t);
+            }
+        }, 0);
+
+        setTimeout(() => {
+            console.log('\n==========');
+            for (let t of tokenize2('1024 + A10 * 25')) {
+                console.log(t);
+            }
+        }, 0);
+    </script>
+</body>
+
+</html>
