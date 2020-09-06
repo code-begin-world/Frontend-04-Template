@@ -1,19 +1,19 @@
 # 学习笔记
 
-- [x] 1. 寻路 | [实现一个地图编辑器](./findPath/01.html)
+- [x] 1. 寻路 - [实现一个地图编辑器](./findPath/01.html)
   - 实现地图编辑效果
   - dom 改为了canvas, 10000 个dom节点 数量是有点大的
   - 新支持了仅点击也可以绘制和清除，用于精确控制点
-- [x] 2. 寻路 | [广度优先搜索](findPath/02.html)
-- [x] 3. 寻路 | [通过异步编程可视化寻路算法](findPath/03.html)
-- [x] 4. 寻路 | [处理路径问题](findPath/04.html)
-- [x] 5. 寻路 | [启发式搜索（一）](findPath/05.html)
-- [x] 6. 寻路 | [启发式搜索（二）](findPath/06.html)
-- [x] 7. 使用LL算法构建AST | 四则运算
-- [x] 8. 使用LL算法构建AST | [正则表达式](LL/01.html)
-- [x] 9. 使用LL算法构建AST | [LL词法分析](LL/02.html)
-- [x] 10. 使用LL算法构建AST | [LL语法分析（一）](LL/03.html)
-- [x] 11. 使用LL算法构建AST | [LL语法分析（二）](LL/04.html)
+- [x] 2. 寻路 - [广度优先搜索](findPath/02.html)
+- [x] 3. 寻路 - [通过异步编程可视化寻路算法](findPath/03.html)
+- [x] 4. 寻路 - [处理路径问题](findPath/04.html)
+- [x] 5. 寻路 - [启发式搜索（一）](findPath/05.html)
+- [x] 6. 寻路 - [启发式搜索（二）](findPath/06.html)
+- [x] 7. 使用LL算法构建AST - 四则运算
+- [x] 8. 使用LL算法构建AST - [正则表达式](LL/01.html)
+- [x] 9. 使用LL算法构建AST - [LL词法分析](LL/02.html)
+- [x] 10. 使用LL算法构建AST - [LL语法分析（一）](LL/03.html)
+- [x] 11. 使用LL算法构建AST - [LL语法分析（二）](LL/04.html)
 
 ## 寻路问题
 
