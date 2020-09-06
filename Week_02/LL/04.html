@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四则运算解析</title>
+    <style>
+        .output {
+            position: relative;
+            top: 30%;
+            margin-left: auto;
+            margin-right: auto;
+            width: 600px;
+            background: #000;
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>
+        <label for="">输入四则运算不含扩号<input type="text" id="s" value="1 + 2 - 3"></label>
+        <button id="ok">解析</button>
+    </p>
+    <pre id="output" class="output"></pre>
+    <script src="04.js">
+    </script>
+    <script>
+        var s = document.getElementById('s');
+        var ok = document.getElementById('ok');
+
+        ok.onclick = function () {
+            var str = s.value;
+            try {
+                var tokens = getTokens(str);
+                console.log(JSON.stringify(tokens, 0, 2));
+                document.getElementById('output').textContent = JSON.stringify(Expression(tokens), 0, 4)
+            } catch (error) {
+                console.error(error);
+                alert('解析失败\n' + error)
+            }
+        };
+        ok.click();
+    </script>
+</body>
+
+</html>
