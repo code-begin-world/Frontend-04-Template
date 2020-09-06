@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06-启发式搜索2</title>
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            /* color: #fff;
+            background: #333; */
+            text-align: center;
+        }
+
+        canvas {
+            display: block;
+            margin: 6px auto;
+
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, .15);
+            /* box-shadow: 2px 2px 8px rgba(255, 255, 255, .15); */
+
+            /* border: 1px solid red; */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            <label for="">起点<input id="start" type="text" value="99,99"></label>
+            <label for="">起点<input id="end" type="text" value="49,45"></label>
+            <label for=""><input type="radio" name="1">使用简陋数组</label>
+            <label for=""><input type="radio" name="1" id="useBinaryHeap" checked>使用小顶堆</label>
+            <button id="go">寻路</button>
+        </p>
+    </div>
+    <script src="06.js"></script>
+</body>
+
+</html>
