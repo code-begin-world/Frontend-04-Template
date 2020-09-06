@@ -365,6 +365,13 @@ async function findPath(start, end) {
     // 记录所有可走到的点
     const queue = document.getElementById('useBinaryHeap').checked ? new BinaryHeap([start], compare) : new GetMinQueue([start], compare);
 
+    /**
+     * 将点加入已经走过的集合
+     * @param {Number} x x 坐标
+     * @param {Number} y y 坐标
+     * @param {Point} pre 前置点
+     * @param {Number} g 距离
+     */
     function insert(x, y, pre, g) {
         if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) return;
 
