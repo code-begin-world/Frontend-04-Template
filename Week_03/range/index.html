@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container" style="line-height: 30px;"></div>
+    <div id="dragable" style="width: 100px;height: 100px; background-color: darkkhaki; display: inline-block;"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/Mock.js/1.0.0/mock-min.js"></script>
+    <script>
+        document.querySelector('#container').textContent = Mock.mock('@cword(100,1000)');
+    </script>
+    <script src="./range.js"></script>
+</body>
+
+</html>

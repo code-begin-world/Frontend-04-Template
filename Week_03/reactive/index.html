@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    r<input type="range" id="r" min="0" max="255"><br>
+    g<input type="range" id="g" min="0" max="255"><br>
+    b<input type="range" id="b" min="0" max="255"><br>
+    a<input type="range" id="a" min="0" max="100">%
+
+    <div id="color" style="width: 100px; height: 100px;"></div>
+    <script src="./reactive.js"></script>
+    <script>
+        const r = document.getElementById('r');
+        const g = document.getElementById('g');
+        const b = document.getElementById('b');
+        const a = document.getElementById('a');
+        function change(e) {
+            color[e.target.id] = e.target.value;
+        }
+        r.addEventListener('input', change)
+        g.addEventListener('input', change)
+        b.addEventListener('input', change)
+        a.addEventListener('input', change)
+        const color = reactive({
+            r: 0,
+            g: 0,
+            b: 0,
+            a: 100
+        })
+        effect(() => {
+            r.value = color.r
+        });
+
+        effect(() => {
+            g.value = color.g
+        });
+
+        effect(() => {
+            b.value = color.b
+        });
+
+        effect(() => {
+            a.value = color.a
+        });
+        var colorEl = document.querySelector('#color');
+        effect(() => {
+
+            colorEl.style.background = `rgba(${color.r},${color.g},${color.b},${parseInt(color.a, 10) / 100})`
+        });
+
+    </script>
+</body>
+
+</html>
