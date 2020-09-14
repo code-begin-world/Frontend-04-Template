@@ -14,7 +14,7 @@ function find(source, pattern) {
                 return false;
             }
         }
-        return;
+        return true;
     }
 
     let i = 0;
@@ -36,16 +36,27 @@ function find(source, pattern) {
             i++;
         }
 
-        // todo 可尝试用 kmp 替换掉正则
-        // 尝试将 ? 转化为正则的任意字符 并进行正则匹配
-        let reg = new RegExp(subPattern.replace(/\?/g, '[\\s\\S]'), 'g');
-        reg.lastIndex = lastIndex;
-        let result = reg.exec(source);
-        console.log(result);
-        if (!result) {
+        // #region 带 ? 的 kmp 方案
+        let kmpResult = kmp(source.substr(lastIndex), subPattern);
+        if (!~kmpResult) {
+            // kmp 匹配失败则结束
             return false;
         }
-        lastIndex = reg.lastIndex;
+        // 否则下次开始位置 向后移动
+        lastIndex += kmpResult + subPattern.length;
+        // #endregion
+
+        // #region 正则方案
+        // 尝试将 ? 转化为正则的任意字符 并进行正则匹配
+        // let reg = new RegExp(subPattern.replace(/\?/g, '[\\s\\S]'), 'g');
+        // reg.lastIndex = lastIndex;
+        // let result = reg.exec(source);
+        // console.log(result);
+        // if (!result) {
+        //     return false;
+        // }
+        // lastIndex = reg.lastIndex;
+        // #endregion
     }
 
     // 最后匹配尾部的 *
@@ -67,6 +78,67 @@ function test(source, pattern) {
     document.body.insertAdjacentHTML('beforeend', `<p>${source}, ${pattern} ${p ? '' : '不'}存在匹配</p><br/>`);
     console.groupEnd('test');
 }
+test('abxxxamcxxdd', 'ab*a?c*dd');
 test('hello', '*ll*');
 test('abcdabcdabcex', '*abcdabce?');
 test('aabaabaaac', 'aabaaac');
+
+function kmp(source, pattern) {
+    let table = findPatternTable(pattern);
+
+    let i = 0;
+    let j = 0;
+    while (i < source.length) {
+        if (pattern[j] === source[i] || pattern[j] === '?') {
+            // 如果匹配 双指针移动
+            i++;
+            j++;
+        } else {
+            // 根据 pattern 表格回退
+            if (j > 0) {
+                j = table[j];
+            } else {
+                i++;
+            }
+        }
+        if (j === pattern.length) {
+            // debugger;
+            // console.log(source, pattern, `存在匹配，开始位置为 ${i - j}`);
+            return i - j;
+        }
+    }
+    return -1;
+}
+
+function findPatternTable(pattern) {
+    // 记录匹配到当前位置时 前面已经有多少内容是匹配的
+    // 这样回退的时候可以直接回退到此位置再比较而不必存在不匹配就直接回退到0重新开始
+    let table = new Array(pattern.length).fill(0);
+
+    // abcdabce => [0, 0, 0, 0, 0, 1, 2, 3]
+    // aabaaac => [0, 0, 1, 0, 1, 2, 2]
+    // abababc => [0, 0, 0, 1, 2, 3, 4]
+    let i = 1;
+    let j = 0;
+    while (i < pattern.length) {
+        if (pattern[i] === pattern[j] || pattern[j] === '?') {
+            // 相同的情况 前进 并标记
+            i++;
+            j++;
+            if (i < pattern.length) {
+                table[i] = j;
+            }
+        } else {
+            // j = 0
+            if (j > 0) {
+                j = table[j];
+            } else {
+                i++;
+            }
+        }
+        // debugger;
+        // console.log(i, j, JSON.stringify(table));
+    }
+    console.log('PatternTable', table);
+    return table;
+}
