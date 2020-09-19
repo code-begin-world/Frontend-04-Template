@@ -1,4 +1,5 @@
 function kmp(source, pattern) {
+    if (!pattern) return 0;
     let table = findPatternTable(pattern);
 
     let i = 0;
