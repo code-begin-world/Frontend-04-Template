@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类型转换</title>
+    <style>
+        .output {
+            /* position: relative;
+            top: 30%; */
+            /* margin-left: auto;
+            margin-right: auto; */
+            width: 600px;
+            background: #000;
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>string2number</h2>
+    <div>
+        <label>请输入<input type="text" id="string2number"></label><label>radix<input type="text" value="10" id="string2numberradix"></label>
+        <button onclick="str2num()">go</button>
+        <pre id="output" class="output"></pre>
+    </div>
+
+    <h2>number2string</h2>
+    <div>
+        <label>请输入<input type="text" id="number2string"></label><label>radix<input type="text" value="10" id="number2stringradix"></label>
+        <button onclick="num2string()">go</button>
+        <pre id="output2" class="output"></pre>
+    </div>
+
+
+
+    <script src="./index.js"></script>
+    <script>
+        function str2num() {
+            const v = document.querySelector('#string2number').value.trim()
+            const radix = parseInt(document.querySelector('#string2numberradix').value.trim())
+            testStr2num(v, radix);
+        }
+        function testStr2num(v, radix) {
+            const v1 = string2number(v, radix)
+            const v2 = parseInt(v, radix)
+            const isOk = v1 === v2 || (Number.isNaN(v1) && Number.isNaN(v2));
+
+            document.getElementById('output').insertAdjacentHTML('beforeend',
+                `<div>字符串： ${v}, 进制： ${radix}, 结果：<span style="color:${isOk ? 'green' : 'red'}">${v1} </span>, 预期： ${v2}  </div>`
+            )
+        }
+        testStr2num('ff', 16)
+        testStr2num('FE', 16)
+        testStr2num('12866X', 10)
+        testStr2num('12866X')
+        testStr2num('0xFF')
+        testStr2num('-0xFF', 16)
+
+
+        function num2string() {
+            const v = Number(document.querySelector('#number2string').value.trim())
+            const radix = parseInt(document.querySelector('#number2stringradix').value.trim())
+            testNum2string(v, radix);
+        }
+        function testNum2string(v, radix) {
+            const v1 = number2string(v, radix)
+            const v2 = (v).toString(radix)
+            const isOk = v1 === v2 || (Number.isNaN(v1) && Number.isNaN(v2)) || v1.toUpperCase() === v2.toUpperCase();
+
+            document.getElementById('output2').insertAdjacentHTML('beforeend',
+                `<div>数值： ${v}, 进制： ${radix}, 结果：<span style="color:${isOk ? 'green' : 'red'}">${v1} </span>, 预期： ${v2}  </div>`
+            )
+        }
+
+        testNum2string(188, 16)
+        testNum2string(188, 10)
+        testNum2string(255, 2)
+        testNum2string(255, 16)
+        testNum2string(255, 8)
+        testNum2string(-255, 16)
+
+    </script>
+</body>
+
+</html>

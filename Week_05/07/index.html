@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>realm</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="show" style="height: 100vh;"></div>
+
+    <script src="./index.js"></script>
+
+    <!--     
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.8.0/echarts.min.js"></script>
+    <script>
+        var myChart = echarts.init(document.querySelector('#show'));
+
+        myChart.setOption({
+            series: [
+                {
+                    type: 'tree',
+                    layout: 'radial',
+                    data: [realms],
+                    initialTreeDepth: 4
+                }
+            ]
+        });
+    </script> -->
+    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g6-3.1.1/build/g6.js"></script>
+    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.hierarchy-0.5.0/build/hierarchy.js"></script>
+    <script>
+        // function addId(obj) {
+        //     if (!obj.id) obj.id = obj.name;
+
+        //     if (obj.children) {
+        //         obj.children.forEach((item) => {
+        //             addId(item)
+        //         })
+        //     }
+        // }
+        // addId(realms);
+        var graph = new G6.TreeGraph({
+            container: 'show',
+            width: window.innerWidth,
+            height: window.innerHeight * 1.4,
+            pixelRatio: 2,
+            linkCenter: true,
+            modes: {
+                default: [{
+                    type: 'collapse-expand',
+                    onChange: function onChange(item, collapsed) {
+                        var data = item.get('model').data;
+                        data.collapsed = collapsed;
+                        return true;
+                    }
+                }, 'drag-canvas', 'zoom-canvas']
+            },
+            defaultNode: {
+                size: 16,
+                style: {
+                    fill: '#40a9ff',
+                    stroke: '#096dd9'
+                }
+            },
+            defaultEdge: {
+                style: {
+                    stroke: '#A3B1BF'
+                }
+            },
+            layout: function layout(data) {
+                var result = Hierarchy.dendrogram(data, {
+                    direction: 'LR', // H / V / LR / RL / TB / BT
+                    nodeSep: 120,
+                    rankSep: 160
+                });
+                G6.Util.radialLayout(result);
+                return result;
+            }
+        });
+
+        graph.node(function (node) {
+            return {
+                size: 60,
+                style: {
+                    fill: '#40a9ff',
+                    stroke: '#096dd9'
+                },
+                label: node.name,
+                id: node.name,
+                labelCfg: {
+                    position: 'center'
+                }
+                // labelCfg: {
+                //     position: node.children && node.children.length > 0 ? 'left' : 'right'
+                // }
+            };
+        });
+
+        graph.data(realms);
+        graph.render();
+        graph.fitView();
+    </script>
+</body>
+
+</html>
