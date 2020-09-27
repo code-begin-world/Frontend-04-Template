@@ -22,7 +22,7 @@
     </style>
 </head>
 
-<body>
+<body style="opacity: 1;">
     <h2>string2number</h2>
     <div>
         <label>请输入<input type="text" id="string2number"></label><label>radix<input type="text" value="10" id="string2numberradix"></label>
@@ -84,6 +84,11 @@
         testNum2string(255, 16)
         testNum2string(255, 8)
         testNum2string(-255, 16)
+        testNum2string(12.8)
+        testNum2string(.4, 8)
+        testNum2string(.55, 16)
+        testNum2string(254.5, 16)
+        testNum2string(0.8125, 2)
 
     </script>
 </body>

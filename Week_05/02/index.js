@@ -1,6 +1,7 @@
+// 36 进制以内有效的字符
 const numbers = '0123456789' + [...new Array(26)].map((_, i) => String.fromCharCode(65 + i)).join('');
 /**
- * 字符串转数值
+ * 字符串转数值 参考 parseInt 的规范实现
  * @param {string} str 要处理的字符串
  * @param {number | undefined} radix 进制 2~36
  */
@@ -79,9 +80,16 @@ function number2string(num, radix) {
     if (negative) {
         num = -num;
     }
+    const pointIndex = ('' + num).indexOf('.');
 
-    let n = num;
-    let str = [];
+    // #region 整数部分
+    let n;
+    if (pointIndex != -1) {
+        n = num >> 0;
+    } else {
+        n = num;
+    }
+    let str = '';
 
     while (n >= radix) {
         let s = n % radix;
@@ -91,6 +99,29 @@ function number2string(num, radix) {
     if (n != 0) {
         str = numbers[n] + str;
     }
+
+    // #endregion
+
+    // #region 小数部分 小数 * 进制 余数继续此操作
+    if (pointIndex !== -1) {
+        if (!str) {
+            str = '0';
+        }
+        str += '.';
+        // todo： 如何提取数值的小数部分 不转字符串的情况下 很难精确提取数值的小数部分 也许是我没想到 ？
+        n = Number((num + '').substr(pointIndex));
+
+        const limitLen = 18;
+        let i = 0;
+
+        while (i++ < limitLen && n) {
+            let t = n * radix;
+            s = t >> 0;
+            n = t - s;
+            str += numbers[s];
+        }
+    }
+    // #endregion
 
     return negative ? '-' + str : str;
 }
