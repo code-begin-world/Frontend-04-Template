@@ -7,3 +7,6 @@ function findA(str) {
 
   return result;
 }
+
+console.log(findA("nnna"));
+console.log(findA("abc"));
