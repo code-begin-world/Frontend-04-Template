@@ -1,0 +1,375 @@
+{
+  "type": "document",
+  "children": [
+    {
+      "type": "element",
+      "children": [
+        {
+          "type": "text",
+          "content": "\n\n"
+        },
+        {
+          "type": "element",
+          "children": [
+            {
+              "type": "text",
+              "content": "\n  "
+            },
+            {
+              "type": "element",
+              "children": [],
+              "attributes": [
+                {
+                  "name": "charset",
+                  "value": "UTF-8"
+                },
+                {
+                  "name": "isSelfClosing",
+                  "value": true
+                }
+              ],
+              "tagName": "meta",
+              "computedStyle": {}
+            },
+            {
+              "type": "text",
+              "content": "\n  "
+            },
+            {
+              "type": "element",
+              "children": [],
+              "attributes": [
+                {
+                  "name": "name",
+                  "value": "viewport"
+                },
+                {
+                  "name": "content",
+                  "value": "width=device-width, initial-scale=1.0"
+                },
+                {
+                  "name": "isSelfClosing",
+                  "value": true
+                }
+              ],
+              "tagName": "meta",
+              "computedStyle": {}
+            },
+            {
+              "type": "text",
+              "content": "\n  "
+            },
+            {
+              "type": "element",
+              "children": [
+                {
+                  "type": "text",
+                  "content": "Document"
+                }
+              ],
+              "attributes": [],
+              "tagName": "title",
+              "computedStyle": {}
+            },
+            {
+              "type": "text",
+              "content": "\n  "
+            },
+            {
+              "type": "element",
+              "children": [
+                {
+                  "type": "text",
+                  "content": "\n    body div #img {\n      width: 100px;\n      background-color: blue;\n    }\n\n    body div img,\n    .img {\n      width: 200px;\n      background-color: green;\n    }\n\n    html p {\n      color: red;\n    }\n    .body ul.ul {\n      height: 200px;\n    }\n    .body label#label {\n      font-size: 20px;\n    }\n  "
+                }
+              ],
+              "attributes": [],
+              "tagName": "style",
+              "computedStyle": {}
+            },
+            {
+              "type": "text",
+              "content": "\n"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "unquotedAttribute",
+              "value": "nquotedAttributeValue"
+            }
+          ],
+          "tagName": "head",
+          "computedStyle": {}
+        },
+        {
+          "type": "text",
+          "content": "\n\n"
+        },
+        {
+          "type": "element",
+          "children": [
+            {
+              "type": "text",
+              "content": "\n  "
+            },
+            {
+              "type": "element",
+              "children": [
+                {
+                  "type": "text",
+                  "content": "\n    "
+                },
+                {
+                  "type": "element",
+                  "children": [],
+                  "attributes": [
+                    {
+                      "name": "src",
+                      "value": ""
+                    },
+                    {
+                      "name": "id",
+                      "value": "img"
+                    },
+                    {
+                      "name": "alt",
+                      "value": ""
+                    },
+                    {
+                      "name": "isSelfClosing",
+                      "value": true
+                    }
+                  ],
+                  "tagName": "img",
+                  "computedStyle": {
+                    "width": {
+                      "specificity": [
+                        0,
+                        1,
+                        0,
+                        2
+                      ],
+                      "value": "100px"
+                    },
+                    "background-color": {
+                      "specificity": [
+                        0,
+                        1,
+                        0,
+                        2
+                      ],
+                      "value": "blue"
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": "\n    "
+                },
+                {
+                  "type": "element",
+                  "children": [],
+                  "attributes": [
+                    {
+                      "name": "src",
+                      "value": ""
+                    },
+                    {
+                      "name": "class",
+                      "value": "img"
+                    },
+                    {
+                      "name": "alt",
+                      "value": ""
+                    },
+                    {
+                      "name": "isSelfClosing",
+                      "value": true
+                    }
+                  ],
+                  "tagName": "img",
+                  "computedStyle": {
+                    "width": {
+                      "specificity": [
+                        0,
+                        0,
+                        1,
+                        0
+                      ],
+                      "value": "200px"
+                    },
+                    "background-color": {
+                      "specificity": [
+                        0,
+                        0,
+                        1,
+                        0
+                      ],
+                      "value": "green"
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": "\n    "
+                },
+                {
+                  "type": "element",
+                  "children": [],
+                  "attributes": [
+                    {
+                      "name": "src",
+                      "value": ""
+                    },
+                    {
+                      "name": "alt",
+                      "value": ""
+                    },
+                    {
+                      "name": "isSelfClosing",
+                      "value": true
+                    }
+                  ],
+                  "tagName": "img",
+                  "computedStyle": {
+                    "width": {
+                      "specificity": [
+                        0,
+                        0,
+                        0,
+                        3
+                      ],
+                      "value": "200px"
+                    },
+                    "background-color": {
+                      "specificity": [
+                        0,
+                        0,
+                        0,
+                        3
+                      ],
+                      "value": "green"
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": "\n\n    "
+                },
+                {
+                  "type": "element",
+                  "children": [
+                    {
+                      "type": "text",
+                      "content": "text content"
+                    }
+                  ],
+                  "attributes": [],
+                  "tagName": "p",
+                  "computedStyle": {
+                    "color": {
+                      "specificity": [
+                        0,
+                        0,
+                        0,
+                        2
+                      ],
+                      "value": "red"
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": "\n    "
+                },
+                {
+                  "type": "element",
+                  "children": [],
+                  "attributes": [
+                    {
+                      "name": "class",
+                      "value": "ul"
+                    }
+                  ],
+                  "tagName": "ul",
+                  "computedStyle": {
+                    "height": {
+                      "specificity": [
+                        0,
+                        0,
+                        2,
+                        1
+                      ],
+                      "value": "200px"
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": "\n    "
+                },
+                {
+                  "type": "element",
+                  "children": [],
+                  "attributes": [
+                    {
+                      "name": "id",
+                      "value": "label"
+                    }
+                  ],
+                  "tagName": "label",
+                  "computedStyle": {
+                    "font-size": {
+                      "specificity": [
+                        0,
+                        1,
+                        1,
+                        1
+                      ],
+                      "value": "20px"
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": "\n  "
+                }
+              ],
+              "attributes": [],
+              "tagName": "div",
+              "computedStyle": {}
+            },
+            {
+              "type": "text",
+              "content": "\n"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "class",
+              "value": "body"
+            }
+          ],
+          "tagName": "body",
+          "computedStyle": {}
+        },
+        {
+          "type": "text",
+          "content": "\n\n"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "lang",
+          "value": "en"
+        }
+      ],
+      "tagName": "html",
+      "computedStyle": {}
+    },
+    {
+      "type": "text",
+      "content": "\r\n"
+    }
+  ]
+}

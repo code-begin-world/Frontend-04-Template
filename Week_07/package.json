@@ -1,0 +1,19 @@
+{
+  "name": "week_07",
+  "version": "1.0.0",
+  "description": "",
+  "main": "client.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "client": "node client.js"
+  },
+  "author": "Douglas Chen",
+  "license": "ISC",
+  "dependencies": {
+    "css": "^3.0.0"
+  }
+}

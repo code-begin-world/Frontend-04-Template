@@ -1,3 +1,4 @@
+const CSSParser = require('./CSSParser.js');
 const EOF = Symbol('eof');
 
 const SPACE_REG = /^[\t\n\f ]$/;
@@ -11,7 +12,6 @@ let currentAttribute = {
 };
 
 let currentTextNode = null;
-
 const stack = [{ type: 'document', children: [] }];
 
 /**
@@ -23,9 +23,8 @@ function emit(token) {
 
   let top = stack[stack.length - 1];
 
-  currentTextNode = null;
-
   if (token.type === 'startTag') {
+    currentTextNode = null;
     const element = {
       type: 'element',
       children: [],
@@ -42,6 +41,8 @@ function emit(token) {
       }
     });
 
+    CSSParser.computedCSSStyle(element, stack);
+
     top.children.push(element);
     element.parent = top;
 
@@ -51,9 +52,14 @@ function emit(token) {
       console.log('element', element);
     }
   } else if (token.type === 'endTag') {
+    currentTextNode = null;
     if (top.tagName !== token.tagName) {
       throw new Error(`Tag start and end doesn\'t match. start [${top.tagName}] and end [${token.tagName}]`);
     } else {
+      if (top.tagName === 'style') {
+        CSSParser.addCSSRules(top.children[0].content);
+      }
+
       console.log('element', top);
       stack.pop();
     }

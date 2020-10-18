@@ -1,4 +1,6 @@
 const net = require('net');
+const fs = require('fs');
+const path = require('path');
 
 const ResponseParser = require('./parser/ResponseParsers.js');
 const HtmlParser = require('./parser/HtmlParser.js');
@@ -89,4 +91,22 @@ void (async function () {
 
   const dom = HtmlParser.parseHTML(response.body);
   console.log(dom);
+
+  testOutPut(dom);
 })();
+
+function testOutPut(dom) {
+  function dealChildren(obj) {
+    obj.children = obj.children.map((item) => {
+      delete item.parent;
+      if (item.children) {
+        dealChildren(item);
+      }
+      return item;
+    });
+  }
+
+  dealChildren(dom);
+
+  fs.writeFileSync(path.join(__dirname, '/out.json'), JSON.stringify(dom, 0, 2));
+}
