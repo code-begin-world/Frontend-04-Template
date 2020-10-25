@@ -1,5 +1,7 @@
 const CSSParser = require('./CSSParser.js');
-const EOF = Symbol('eof');
+const layout = require('./Layout.js');
+
+const EOF = Symbol('EOF');
 
 const SPACE_REG = /^[\t\n\f ]$/;
 
@@ -60,6 +62,7 @@ function emit(token) {
         CSSParser.addCSSRules(top.children[0].content);
       }
 
+      layout(top);
       console.log('element', top);
       stack.pop();
     }

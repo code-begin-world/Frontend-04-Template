@@ -1,9 +1,11 @@
 const net = require('net');
 const fs = require('fs');
 const path = require('path');
+const images = require('images');
 
 const ResponseParser = require('./parser/ResponseParsers.js');
 const HtmlParser = require('./parser/HtmlParser.js');
+const render = require('./parser/Render.js');
 
 // 构造 Request 请求对象
 class Request {
@@ -92,7 +94,11 @@ void (async function () {
   const dom = HtmlParser.parseHTML(response.body);
   console.log(dom);
 
-  testOutPut(dom);
+  let viewport = images(800, 600);
+  // render(viewport, dom.children[0].children[3].children[1].children[1]);
+  render(viewport, dom);
+  viewport.save(path.join(__dirname, 'viewport.jpg'));
+  // testOutPut(dom);
 })();
 
 function testOutPut(dom) {
