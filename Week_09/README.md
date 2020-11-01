@@ -123,6 +123,34 @@ function matchOne(selector, element) {}
   - `+` 检查当前元素的前一个兄弟即可。
   - `~` 检查当前元素的所有前面的兄弟元素，任意匹配即可。
 
+结果验证：
+
+```html
+<html lang="en">
+<body>
+  <div id="header" class="header">
+    <h1 class="h1">
+      <span class="active" data-id="1" abc id="test">span#test</span>
+    </h1>
+    <h2 id="h2">h2</h2>
+    <h2 id="h3" abd="a>1">h3</h2>
+  </div>
+</body>
+</html>
+```
+
+调用和结果
+
+```js
+console.log(match('html[lang=en] body #header.header > .h1 #test[abc]', document.getElementById('test')));
+// true
+console.log(match('html[lang="en"]  body #header.header > .h1 + h2', document.getElementById('h2')));
+// true
+console.log(match("html[lang='en'] body #header.header > h1.h1 ~ h2", document.getElementById('h3')));
+// true
+console.log(match("html[lang='zh-CN'] body #header.header > h1.h1 ~ h2", document.getElementById('h3')));
+// false
+```
 
 **目前实现存在的缺陷**
 

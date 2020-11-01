@@ -38,15 +38,17 @@ function match(selector, element) {
     // 这里暂时只考向上找 找到就停止
     if (prevSelector.prev == ' ') {
       let sels = getAllSingleSelector(currentSelector.value);
-
-      let parent = currentEl.parentElement;
-      while (parent) {
-        let matched = sels.every((s) => matchOne(s, parent));
+      let matched = false;
+      currentEl = currentEl.parentElement;
+      while (currentEl) {
+        matched = sels.every((s) => matchOne(s, currentEl));
         if (matched) {
-          currentEl = parent;
           break;
         }
-        parent = parent.parentElement;
+        currentEl = currentEl.parentElement;
+      }
+      if (!currentEl && !matched) {
+        return false;
       }
     }
 
@@ -130,7 +132,7 @@ function matchOne(selector, element) {
     ) {
       value = value.substr(1, value.length - 2);
     }
-    return value === element.getAttribute('prop');
+    return value === element.getAttribute(prop);
   }
   // tag
   return selector.toUpperCase() === element.tagName;
@@ -371,3 +373,5 @@ console.log(match('html[lang=en] body #header.header > .h1 #test[abc]', document
 console.log(match('html[lang="en"]  body #header.header > .h1 + h2', document.getElementById('h2')));
 
 console.log(match("html[lang='en'] body #header.header > h1.h1 ~ h2", document.getElementById('h3')));
+
+console.log(match("html[lang='zh-CN'] body #header.header > h1.h1 ~ h2", document.getElementById('h3')));
