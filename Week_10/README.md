@@ -1,1 +1,5 @@
-学习笔记
+# week10
+
+[css属性.xmind](./css属性.xmind)
+
+![](./css属性.png)
