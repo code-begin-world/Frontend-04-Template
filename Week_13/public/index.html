@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <style>
+    #el1,
+    #el2,
+    #el3,
+    #el4 {
+      width: 100px;
+      height: 100px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  ease
+  <div id="el1" style="background:red;"></div>
+  easeIn
+  <div id="el2" style="background:green;"></div>
+  easeOut
+  <div id="el3" style="background:blue;"></div>
+  easeInOut
+  <div id="el4" style="background:blueviolet;"></div>
+
+  <br>
+  <button id="start">start</button>
+  <button id="restart" hidden>restart</button>
+  <button id="pause">pause</button>
+  <button id="resume">resume</button>
+</body>
+
+</html>
