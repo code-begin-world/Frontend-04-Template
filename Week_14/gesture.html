@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <!-- <script src="./gesture0.js"></script> -->
+  <script>
+    document.documentElement.addEventListener('contextmenu', function (event) { event.preventDefault() });
+
+    document.documentElement.addEventListener('tap', function (e) {
+      console.log('tap', e);
+    })
+  </script>
+  <script type="module">
+    import { enableGesture } from "./gesture.js";
+    enableGesture(document.documentElement);
+    // document.documentElement.addEventListener('tap', function (e) {
+    //   console.log('tap', e);
+    // });
+    document.documentElement.addEventListener('press', function (e) {
+      console.log('press', e);
+    });
+    document.documentElement.addEventListener('pressend', function (e) {
+      console.log('pressend', e);
+    });
+    document.documentElement.addEventListener('panstart', function (e) {
+      console.log('panstart', e);
+    });
+    document.documentElement.addEventListener('pan', function (e) {
+      console.log('pan', e);
+    });
+    document.documentElement.addEventListener('panend', function (e) {
+      console.log('panend', e);
+    });
+    document.documentElement.addEventListener('flick', function (e) {
+      console.log('flick', e);
+    });
+    document.documentElement.addEventListener('cancel', function (e) {
+      console.log('cancel', e);
+    });
+  </script>
+</body>
+
+</html>
