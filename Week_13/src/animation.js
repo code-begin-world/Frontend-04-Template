@@ -10,7 +10,7 @@ export class TimeLine {
 
     this.tick = () => {
       let t = +new Date() - this.startTime;
-
+      console.log('tick');
       for (let animation of this.animations) {
         let { object, property, template, start, end, duration, timeFunction, delay } = animation;
 
@@ -32,7 +32,6 @@ export class TimeLine {
         this.requestID = requestAnimationFrame(this.tick);
       } else {
         this.requestID = null;
-        this.state = 'end';
       }
     };
   }
@@ -92,6 +91,9 @@ export class TimeLine {
       this.addTimes.set(animation, addTime !== void 0 ? addTime : +new Date() - this.startTime);
     } else {
       this.addTimes.set(animation, addTime !== void 0 ? addTime : 0);
+    }
+    if (this.requestID=== null) {
+      this.tick();
     }
   }
 }

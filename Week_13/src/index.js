@@ -64,3 +64,14 @@ document.getElementById('pause').addEventListener('click', () => {
 document.getElementById('resume').addEventListener('click', () => {
   tl.resume();
 });
+
+window.a5 = new Animation(
+  document.querySelector('#el4').style,
+  'transform',
+  window.innerWidth - 100,
+  0,
+  2000,
+  0,
+  easeInOut,
+  (v) => `translateX(${v}px)`
+);
