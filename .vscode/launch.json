@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch Program moc",
+            "program": "${workspaceFolder}/app.js",
+            "runtimeArgs": [
+                "--require", "@babel/register"
+            ],
+            "sourceMaps": true,
+            "args": [],
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Launch File",
