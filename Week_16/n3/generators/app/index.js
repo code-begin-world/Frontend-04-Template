@@ -21,6 +21,13 @@ module.exports = class extends (
     this.fs.copyTpl(this.templatePath('main.js'), this.destinationPath('main.js'));
 
     this.fs.copyTpl(this.templatePath('webpack.config.js'), this.destinationPath('webpack.config.js'));
+
+    // 测试
+    this.fs.copyTpl(this.templatePath('.babelrc'), this.destinationPath('.babelrc'));
+    this.fs.copyTpl(this.templatePath('.mocharc.yaml'), this.destinationPath('.mocharc.yaml'));
+    this.fs.copyTpl(this.templatePath('.nycrc'), this.destinationPath('.nycrc'));
+
+    this.fs.copy(this.templatePath('test.js'), this.destinationPath('test/test.js'));
   }
   // 依赖安装
   async initPackage() {
@@ -44,7 +51,8 @@ module.exports = class extends (
       description: '',
       main: 'main.js',
       scripts: {
-        test: 'echo "Error: no test specified" && exit 1',
+        test: 'mocha',
+        coverage: 'nyc mocha',
         dev: 'webpack serve',
         build: 'set NODE_ENV=production&& webpack'
       },
@@ -58,13 +66,20 @@ module.exports = class extends (
         'webpack-dev-server': '^3.11.0',
         '@babel/core': '^7.12.7',
         '@babel/preset-env': '^7.12.7',
-        'babel-loader': '^8.2.1'
+        'babel-loader': '^8.2.1',
+        '@babel/register': '^7.12.10',
+        '@istanbuljs/nyc-config-babel': '^3.0.0',
+        'babel-plugin-istanbul': '^6.0.0',
+        mocha: '^8.2.1',
+        nyc: '^15.1.0'
       }
     };
     // Extend or create package.json file in destination path
     this.fs.extendJSON(this.destinationPath('package.json'), pkgJson);
     this.npmInstall();
     this.npmInstall(['vue'], { 'save-dev': false });
-    this.npmInstall(['vue-loader', 'vue-template-compiler', 'vue-style-loader', 'css-loader', 'copy-webpack-plugin'], { 'save-dev': true });
+    this.npmInstall(['vue-loader', 'vue-template-compiler', 'vue-style-loader', 'css-loader', 'copy-webpack-plugin'], {
+      'save-dev': true
+    });
   }
 };
