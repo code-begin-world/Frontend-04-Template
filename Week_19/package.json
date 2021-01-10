@@ -1,0 +1,14 @@
+{
+  "name": "week_19",
+  "version": "1.0.0",
+  "description": "阻止提交 `process.exit(1);`",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.17.0"
+  }
+}
